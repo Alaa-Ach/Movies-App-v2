@@ -70,13 +70,13 @@ onMounted(async () => {
       <!-- Infos -->
       <div class="absolute top-24 md:top-60 z-2 sm:mx-24 text-white p-5">
         <!-- Title -->
-        <p class="font-extrabold font-mono text-6xl">
+        <p class="font-extrabold font-mono text-4xl sm:text-6xl">
           {{ movieResp.original_title }}
         </p>
         <!-- Second line -->
-        <div class="flex items-center gap-2">
+        <div class="sm:flex items-center gap-2">
           <!-- Stars -->
-          <div class="flex items-center font-semibold text-lg">
+          <div class="ml-5 flex items-center font-semibold text-lg">
             <Icons
               iconName="star"
               class="stroke-amber-400 border-transparent stroke-2/3 inline-block mr-1"
@@ -85,7 +85,7 @@ onMounted(async () => {
             {{ movieResp.vote_average }}
           </div>
           <!-- Infos -->
-          <div class="ml-5 flex justify-between gap-3">
+          <div class="ml-5 sm:flex justify-between gap-3">
             <!-- Time -->
             <div>
               <Icons

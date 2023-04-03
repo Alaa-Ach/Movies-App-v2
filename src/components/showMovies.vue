@@ -89,7 +89,7 @@ function onPagechanged(x) {
   @apply flex gap-1 justify-center  w-full;
 }
 .paginate-buttons {
-  @apply h-10 w-10 rounded-full cursor-pointer bg-[#f2f2f2] border-[#d9d9d9] text-black hover:bg-[#d8d8d8];
+  @apply h-6 w-6 sm:h-10 sm:w-10 rounded-full cursor-pointer bg-[#f2f2f2] border-[#d9d9d9] text-black hover:bg-[#d8d8d8];
 }
 
 .active-page {

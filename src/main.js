@@ -9,7 +9,7 @@ import VueAwesomePaginate from "vue-awesome-paginate";
 
 // import cookie package
 import Vuecookies from "vue-cookies";
-
+import home from './components/views/home.vue'
 
 
 import { createRouter, createWebHashHistory, createWebHistory } from 'vue-router'
@@ -19,7 +19,7 @@ const pinia = createPinia()
 //create routes
 
 const routes = [
-    { path: "/", name: "home", component: () => import("./components/views/home.vue") },
+    { path: "/", name: "home", component: home },
     { path: "/Bookmarks", name: "bookmarks", component: () => import("./components/views/bookmarks.vue") },
     { path: "/show/:id", name: "showMovie", component: () => import("./components/views/showMovie.vue") },
 ]
