@@ -55,14 +55,14 @@ onMounted(async () => {
     <div class="inset-0 relative">
       <div class="">
         <img
-          class="object-cover sm:w-full sm:object-cover"
+          class="object-cover sm:w-full sm:object-cover feather-edge"
           :src="getImage(movieResp.backdrop_path)"
           alt=""
           srcset=""
         />
-        <div
-          class="bg-gradient-to-b from-transparent via-[#354c80] to-[#354c80] w-full h-72 -bottom-32 absolute"
-        ></div>
+        <!-- <div
+          class="bg-gradient-to-b from-[#354c80] to-[#354c80] opacity-50 w-full h-20 -bottom-20 absolute"
+        ></div> -->
       </div>
       <!-- backdrop opacity -->
       <div class="fixed opacity-50 inset-0 bg-slate-800 w-full h-full"></div>
