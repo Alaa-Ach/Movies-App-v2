@@ -27,7 +27,10 @@ function onPagechanged(x) {
       v-if="searchText != ''"
       class="ml-12 mt-10 font-mono text-lg sm:text-2xl font-extrabold"
     >
-      Search For : {{ searchText }}
+      <span class="text-yellow-500"> Search For : </span>
+      <span class="text-white">
+        {{ searchText }}
+      </span>
     </div>
 
     <div class="" v-if="movieList">

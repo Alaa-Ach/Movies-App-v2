@@ -180,7 +180,7 @@ export const useRequestsStore = defineStore('requests', () => {
     //get full image url using path
     const getImage = (path, quality = "original") => path ?
         `https://image.tmdb.org/t/p/${quality}${path}` :
-        `/src/assets/not-found.png`;
+        `/not-found.png`;
 
 
 
