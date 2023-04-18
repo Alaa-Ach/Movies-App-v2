@@ -2,12 +2,12 @@
 import { storeToRefs } from "pinia";
 import { onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
-import { useRequestsStore } from "../../stores/requests";
-import { useMovieStore } from "../../stores/movieStore";
-import icons from "../icons.vue";
-import starsRating from "../starsRating.vue";
-import showMoreLess from "../showMoreLess.vue";
-import Icons from "../icons.vue";
+import { useRequestsStore } from "../stores/requests";
+import { useMovieStore } from "../stores/movieStore";
+import icons from "../components/icons.vue";
+import starsRating from "../components/starsRating.vue";
+import showMoreLess from "../components/showMoreLess.vue";
+import Icons from "../components/icons.vue";
 import { computed } from "@vue/reactivity";
 const store = useRequestsStore();
 const movieStore = useMovieStore();

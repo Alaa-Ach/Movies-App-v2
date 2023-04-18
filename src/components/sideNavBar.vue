@@ -42,16 +42,15 @@ const test = ref(false);
     <div
       :class="[
         showMenu
-          ? 'h-fit sm:h-full sm:w-72 py-10 px-4 '
+          ? 'h-fit sm:h-full sm:w-72 max-w-xs mx-auto py-10 px-4 '
           : 'h-0  sm:w-0 overflow-hidden',
       ]"
       class="bg-[#111827] transition-all z-3 sm:fixed col-span-1 flex flex-col items-center sm:h-full relative"
     >
-      <!-- Go to Wish List -->
-      <!-- <component>Hi</component> -->
-
+      <!--Routes -->
+    
       <div
-        class="w-full text-left justify-evenly flex text-blue-600 gap-2 py-2"
+        class=" text-left justify-between flex text-blue-600 gap-2 p-2 w-full"
       >
         <router-link to="/" class="flex">
           <icons iconName="home" class="w-5"></icons>
@@ -71,9 +70,9 @@ const test = ref(false);
         />
       </div>
       <!-- Show filters only on home page -->
-      <div v-if="route.name == 'home'">
+      <div v-if="route.name == 'home'" class="sm:w-full">
         <searchBar
-          class="max-w-xs sm:max-w-full w-full"
+          class="max-w-xs sm:max-w-full w-full mb-8 mt-8"
           v-model:value="searchText"
         />
         <!-- Genres Filter -->
@@ -91,7 +90,7 @@ const test = ref(false);
 
         <button
           @click="applyFilters"
-          class="w-full mt-4 rounded-md py-2 font-mono select-none bg-[#324773] hover:bg-[#25365a] text-slate-200"
+          class="w-full mt-8 rounded-md py-2 font-mono select-none bg-[#324773] hover:bg-[#25365a] text-slate-200"
         >
           Apply Filters
         </button>

@@ -1,11 +1,11 @@
 // stores/counter.js
 import axios from 'axios';
 import { defineStore } from 'pinia'
-import { reactive, ref, watch, computed, inject } from 'vue';
+import { reactive, ref, watch, computed, inject, watchEffect } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 export const useRequestsStore = defineStore('requests', () => {
     const ApiKey = "11014907a552719550c04a15023b913d";
-    const LatestMovies = ref(null);
+    const MoviesList = ref(null);
     const TopratedMovies = ref(null);
     //loading indicator
     const loading = false;
@@ -62,12 +62,15 @@ export const useRequestsStore = defineStore('requests', () => {
 
         currentPage.value = 1
         if (route.name == "home") {
-            getLatestMovies();
+          
             if (val) {
                 router.push({ path: "/", query: { search: val } });
             }
             else { router.push({ path: "/" }); }
+        
+            getMovies();
         }
+
     });
 
 
@@ -127,7 +130,7 @@ export const useRequestsStore = defineStore('requests', () => {
         currentPage.value = 1;
         // console.log(`https://api.themoviedb.org/3/discover/movie?api_key=${ApiKey}&with_original_language=${searchFilter.language.iso_639_1}&vote_average.lte=${searchFilter.rating}&vote_average.gte=${searchFilter.rating}&page=1&with_genres=${searchFilter.genres.toString()}`);
         axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=${ApiKey}&with_original_language=${searchFilter.language.iso_639_1}&vote_average.lte=${searchFilter.rating}&vote_average.gte=${searchFilter.rating}&page=1&with_genres=${searchFilter.genres.map(g => g.id).toString()}`)
-            .then((rep) => LatestMovies.value = rep.data).finally(() => console.log(LatestMovies.value));
+            .then((rep) => MoviesList.value = rep.data).finally(() => console.log(MoviesList.value));
 
 
     }
@@ -141,8 +144,9 @@ export const useRequestsStore = defineStore('requests', () => {
     }
 
     //Get List of Latest Movies
-    function getLatestMovies(page = 1) {
+    function getMovies(page = 1) {
         // currentPage.value = 1
+        console.log(`poka =>${searchText.value}`);
         var urlRequest = ``;
         if (searchText.value != '') {
             TopratedMovies.value = null
@@ -150,13 +154,14 @@ export const useRequestsStore = defineStore('requests', () => {
         }
 
         else {
+            console.log('d8lt');
             getTopRatedMovies()
             urlRequest = `https://api.themoviedb.org/3/movie/upcoming?api_key=${ApiKey}&language=en-US&page=${page}`;
         }
 
 
         axios.get(urlRequest)
-            .then((rep) => LatestMovies.value = rep.data).finally(() => console.log(LatestMovies.value));
+            .then((rep) => MoviesList.value = rep.data).finally(() => console.log(MoviesList.value));
 
 
         // axios.get(`https://api.themoviedb.org/3/movie/top_rated?api_key=${ApiKey}&language=en-US&page=${page}`)
@@ -190,8 +195,8 @@ export const useRequestsStore = defineStore('requests', () => {
     }
 
     return {
-        getLatestMovies, getTopRatedMovies, getGenres, selectGenre, getImage, getLanguages, inializebookmarkList, bookmarkClicked, applyFilters, inializebookmarkMovies,
+       getMovies, getTopRatedMovies, getGenres, selectGenre, getImage, getLanguages, inializebookmarkList, bookmarkClicked, applyFilters, inializebookmarkMovies,
         getMovieByid, checkSearchFilter,
-        searchFilter, genresList, searchText, LatestMovies, TopratedMovies, LanguagesList, bookmarkList, currentPage, bookmarkMoviesList,
+        searchFilter, genresList, searchText, MoviesList, TopratedMovies, LanguagesList, bookmarkList, currentPage, bookmarkMoviesList,
     }
 })

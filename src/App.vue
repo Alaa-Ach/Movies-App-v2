@@ -9,10 +9,10 @@ const showMenu = ref(false);
 <template>
   <div class="">
     <!-- background -->
-    <div class="fixed inset-0 bg-[#354c80]">
+    <div class="fixed inset-0 bg-[#060808]">
       <img
         src="https://wallpapers.com/images/featured/9pvmdtvz4cb0xl37.jpg"
-        class="h-full object-cover lg:w-full opacity-50"
+        class="h-full object-cover lg:w-full opacity-30"
       />
     </div>
     <div class="relative z-50 sm:flex">
@@ -25,4 +25,3 @@ const showMenu = ref(false);
     </div>
   </div>
 </template>
-

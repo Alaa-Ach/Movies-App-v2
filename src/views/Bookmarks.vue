@@ -1,6 +1,6 @@
 <script setup>
-import { useRequestsStore } from "../../stores/requests";
-import showMovies from "../showMovies.vue";
+import { useRequestsStore } from "../stores/requests";
+import showMovies from "../components/showMovies.vue";
 import { computed, onMounted } from "vue";
 import { storeToRefs } from "pinia";
 const store = useRequestsStore();

@@ -42,7 +42,7 @@ onMounted(() => {
 
 <template>
   <!-- {{ TopratedMovies }} -->
-  <div v-if="TopratedMovies" class="mt-16">
+  <div v-if="TopratedMovies && searchText == ''" class="mt-16">
     <div class="mx-12 font-mono text-yellow-500 text-2xl font-extrabold">
       Top Rated Movies:
     </div>
@@ -70,10 +70,8 @@ onMounted(() => {
     </Carousel>
   </div>
 </template>
-  
 
-
-<style >
+<style>
 .carousel__item {
   min-height: 200px;
   width: 300px;

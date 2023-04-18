@@ -4,71 +4,87 @@ import searchBar from "./searchBar.vue";
 import GenresFilter from "./GenresFilter.vue";
 import RatingFilter from "./RatingFilter.vue";
 import { useRequestsStore } from "../stores/requests";
-import { computed, onMounted, ref } from "vue";
+import { computed, onMounted, ref, watch, watchEffect } from "vue";
 import { storeToRefs } from "pinia";
 import Icons from "./icons.vue";
 
-let store = useRequestsStore();
+const store = useRequestsStore();
 let { searchFilter, searchText, LanguagesList } = storeToRefs(store);
-let showLang = ref(false);
-let inputLang = ref("");
-function test() {
-  showLang = !showLang;
-
-  inputLang =
-    Object.keys(searchFilter.language).length != 0
-      ? searchFilter.language.english_name
-      : "";
-}
-
+const showLang = ref(false);
+const inputLang = ref("");
+const inputRef = ref();
 onMounted(async () => {
   await store.getLanguages();
-  searchFilter.value.language = LanguagesList.value.find(
-    (e) => e.iso_639_1 == "xx"
-  );
+  searchFilter.value.language = LanguagesList.value.find((e) => e.iso_639_1 == "xx");
 });
 let comp = computed(() =>
   LanguagesList.value.filter((x) =>
     x.english_name.toLowerCase().startsWith(inputLang.value.toLowerCase())
   )
 );
+watchEffect(() => {
+  if (showLang.value)
+    setTimeout(() => {
+      inputRef.value.focus();
+    }, 0);
+});
 </script>
 
 <template>
-  <div
-    class="relative max-w-xs sm:max-w-full w-full transition-all mt-3 text-white"
-  >
+  <div class="relative max-w-xs sm:max-w-full w-full transition-all mt-3 text-white">
     <p class="font-bold">Language :</p>
-    <div>
+    <div v-if="searchFilter.language">
       <!-- Languages Div -->
       <div class="relative mt-2">
         <div
           @click="
-            showLang = !showLang;
             inputLang =
               searchFilter.language.iso_639_1 == 'xx'
                 ? ''
                 : searchFilter.language.english_name;
+            showLang = true;
           "
           class="relative cursor-pointer flex items-center w-full h-12 max-w-xs sm:max-w-full rounded-lg focus-within:shadow-lg bg-[#374151] overflow-hidden transition-all"
         >
           <!-- language icon -->
-          <div
-            class="grid place-items-center h-full w-12 text-gray-300 shrink-0"
-          >
+          <div class="grid place-items-center h-full w-12 text-gray-300 shrink-0">
             <Icons iconName="language"></Icons>
           </div>
           <!-- Selected Language -->
-          <div
-            class="flex-grow overflow-hidden text-ellipsis whitespace-nowrap"
-          >
-            <div class="text-ellipsis overflow-hidden">
+          <div class="flex-grow overflow-hidden text-ellipsis whitespace-nowrap">
+            <div v-show="!showLang" class="text-ellipsis overflow-hidden">
               {{ searchFilter.language.english_name }}
+            </div>
+            <div v-show="showLang" class="w-full flex flex-row">
+              <!-- show Input for search -->
+              <input
+                ref="inputRef"
+                class="text-ellipsis overflow-hidden bg-transparent outline-none"
+                type="text"
+                v-model="inputLang"
+              />
+
+              <icons
+                class="fill-red-500 hover:fill-red-600 cursor-pointer w-8"
+                iconName="x"
+                @reset="
+                  showLang = flase;
+                  searchFilter.language = LanguagesList.find((e) => e.iso_639_1 == 'xx');
+                  inputLang = '';
+                "
+              ></icons>
             </div>
           </div>
 
           <!-- down arrow icon -->
           <div
+            @click.stop="
+              inputLang =
+                searchFilter.language.iso_639_1 == 'xx'
+                  ? ''
+                  : searchFilter.language.english_name;
+              showLang = !showLang;
+            "
             class="grid place-items-center h-full w-12 text-gray-300 shrink-0"
           >
             <Icons
@@ -82,29 +98,8 @@ let comp = computed(() =>
       <!-- show list -->
       <div
         v-show="showLang"
-        class="z-[51] absolute overflow-auto abs ml-2 mt-1 divide-y-2 text-white bg-slate-500 max-h-56 rounded-sm w-full"
+        class="z-[51] absolute overflow-auto divide-y-2 text-white bg-slate-500 max-h-56 rounded-sm w-full"
       >
-        <!-- input field -->
-        <div class="flex bg-slate-400">
-          <input
-            placeholder="Search for language"
-            v-model="inputLang"
-            type="text"
-            class="placeholder-slate-50 my-1 h-7 p-2 w-full outline-none bg-transparent"
-          />
-          <!-- delete icon -->
-          <icons
-            class="fill-red-500 hover:fill-red-600 cursor-pointer w-8"
-            iconName="x"
-            @reset="
-              showLang = flase;
-              searchFilter.language = LanguagesList.find(
-                (e) => e.iso_639_1 == 'xx'
-              );
-              inputLang = '';
-            "
-          ></icons>
-        </div>
         <!-- language options -->
 
         <div

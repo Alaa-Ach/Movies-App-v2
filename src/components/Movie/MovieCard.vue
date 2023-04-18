@@ -12,6 +12,12 @@ const props = defineProps({
   isBookmarked: Boolean,
 });
 const $cookies = inject("$cookies");
+function convertTime(time) {
+  const hours = Math.floor(time / 60);
+  const minutes = time % 60;
+
+  return `${hours}H ${minutes}M`;
+}
 const loadingImg = ref(true);
 function showMovieDetails() {
   router.push({ name: "showMovie", params: { id: props.movie.id } });
@@ -21,7 +27,7 @@ function showMovieDetails() {
 <template>
   <!-- <router-link :to="{ name: 'showMovie', params: { id: movie.id } }"> -->
   <div
-    class="w-48 sm:w-56 overflow-hidden text-black rounded-lg relative hover:z-50 hover:text-white hover:scale-105 hover:bg-blue-900 hover:shadow-lg transition-all delay-75 cursor-pointer"
+    class="w-48 sm:w-56 overflow-hidden text-black rounded-sm relative hover:z-50 hover:scale-105 bg-yellow-600 hover:shadow-lg transition-all delay-75 cursor-pointer"
     @click="showMovieDetails"
   >
     <!-- Bookmark button -->
@@ -33,9 +39,7 @@ function showMovieDetails() {
         iconName="bookmark"
         class="w-7 h-7 hover:scale-110 transition-all duration-150 ease-linear"
         :class="[
-          isBookmarked
-            ? 'fill-red-600 hover:slate-600'
-            : 'fill-white hover:fill-red-400',
+          isBookmarked ? 'fill-red-600 hover:slate-600' : 'fill-white hover:fill-red-400',
         ]"
       ></icons>
     </div>
@@ -43,32 +47,20 @@ function showMovieDetails() {
       :class="$attrs.class"
       class="w-48 sm:w-56 sm:h-[332px] flex justify-center items-center overflow-hidden"
     >
-      <!-- <img src="../../assets/not-found.png" alt="" /> -->
       <v-lazy-image
         :src="store.getImage(movie.poster_path, 'w300')"
         :src-placeholder="store.getImage(movie.poster_path, 'w200')"
       />
-      <!-- 
-        <icons
-          v-if="loadingImg"
-          iconName="loading-spinner"
-          class="absolute mx-auto"
-        ></icons>
-        <img
-          class="w-56"
-          :src="store.getImage(movie.poster_path)"
-          alt=""
-          srcset=""
-          @load="loadingImg = false"
-        /> -->
     </div>
     <!-- Title -->
-    <div class="font-mono text-center cursor-pointer leading-9 w-48 sm:w-56">
-      <div class="break-words">
+    <div
+      class="text-left cursor-pointer w-48 sm:w-56 p-2 break-words relative flex flex-col justify-between"
+    >
+      <div class="font-bold no-breaks">
         {{ movie.original_title }}
-      </div>
-      <div>
-        {{ movie.release_date.split("-")[0] }}
+        <span class="text-sm font-semibold text-slate-800 self-end">
+          ({{ movie.release_date.split("-")[0] }})
+        </span>
       </div>
     </div>
   </div>
