@@ -5,7 +5,7 @@ import { useRequestsStore } from "../../stores/requests";
 import icons from "../icons.vue";
 import VLazyImage from "v-lazy-image";
 import { useRouter } from "vue-router";
-const rr = "fdfddd";
+const rr = "fdfdddddd";
 const router = useRouter();
 const store = useRequestsStore();
 const props = defineProps({
