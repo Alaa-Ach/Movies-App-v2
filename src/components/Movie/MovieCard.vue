@@ -5,6 +5,7 @@ import { useRequestsStore } from "../../stores/requests";
 import icons from "../icons.vue";
 import VLazyImage from "v-lazy-image";
 import { useRouter } from "vue-router";
+const rr = "fdfd";
 const router = useRouter();
 const store = useRequestsStore();
 const props = defineProps({
@@ -39,7 +40,9 @@ function showMovieDetails() {
         iconName="bookmark"
         class="w-7 h-7 hover:scale-110 transition-all duration-150 ease-linear"
         :class="[
-          isBookmarked ? 'fill-red-600 hover:slate-600' : 'fill-white hover:fill-red-400',
+          isBookmarked
+            ? 'fill-red-600 hover:slate-600'
+            : 'fill-white hover:fill-red-400',
         ]"
       ></icons>
     </div>
